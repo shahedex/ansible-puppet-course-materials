@@ -1,0 +1,11 @@
+---
+-
+ 
+  hosts: webservers
+ 
+  tasks:
+    - name: Test hostvars with an ansible fact
+      debug:
+        msg: "{{ hostvars["username"]}}"
+ 
+...

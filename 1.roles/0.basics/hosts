@@ -1,0 +1,15 @@
+[webservers]
+10.0.3.211 username=hello
+10.0.3.182 username=bello
+10.0.3.148
+
+[dbservers]
+10.0.3.58
+10.0.3.201
+
+[webservers:vars]
+ansible_user=ubuntu
+ansible_become_pass=ubuntu
+ansible_become=true
+
+#[dbservers:vars]

@@ -1,0 +1,12 @@
+---
+- hosts: dbservers
+  remote_user: ubuntu
+  become: yes
+  become_user: root
+  become_method: sudo
+
+  tasks:
+      - name: Fancy way of doing authorized keys
+        authorized_key: user=ubuntu
+                        exclusive=no
+                        key="{{ lookup('file', '~/.ssh/id_rsa.pub') }}"

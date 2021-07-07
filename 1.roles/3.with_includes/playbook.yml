@@ -1,0 +1,13 @@
+---
+- hosts: dbservers
+  become: true
+  vars:
+    - doc_root: /var/www/example
+  tasks:
+    - name: update apt first
+      include_tasks: tasks/apt-update.yml
+    - name: installing nginx
+      include_tasks: tasks/install-apache.yml
+
+- import_playbook: webservers.yml
+

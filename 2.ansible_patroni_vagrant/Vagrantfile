@@ -1,0 +1,41 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+ENV['VAGRANT_NO_PARALLEL'] = 'yes'
+
+Vagrant.configure(2) do |config|
+
+  config.vm.provision "shell", path: "vagrant_bootstrap.sh"
+  config.vm.provision "shell", inline: <<-SHELL
+      echo "sudo su -" >> .bashrc
+  SHELL
+
+  # Master Server
+  config.vm.define "patronimaster" do |patronimaster|
+    patronimaster.vm.box = "hashicorp/bionic64"
+    patronimaster.vm.hostname = "patronimaster"
+    patronimaster.vm.network "private_network", ip: "172.42.42.110"
+    patronimaster.vm.provider "virtualbox" do |v|
+      v.name = "patronimaster"
+      v.memory = 1024
+      v.cpus = 1
+    end
+  end
+
+  NodeCount = 3
+
+  # Postgres Worker Nodes
+  (1..NodeCount).each do |i|
+    config.vm.define "postgresnode0#{i}" do |workernode|
+      workernode.vm.box = "hashicorp/bionic64"
+      workernode.vm.hostname = "postgresnode0#{i}"
+      workernode.vm.network "private_network", ip: "172.42.42.11#{i}"
+      workernode.vm.provider "virtualbox" do |v|
+        v.name = "postgresnode0#{i}"
+        v.memory = 1024
+        v.cpus = 1 
+      end
+    end
+  end
+
+end

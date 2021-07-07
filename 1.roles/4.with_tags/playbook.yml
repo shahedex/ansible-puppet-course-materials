@@ -1,0 +1,25 @@
+---
+- hosts: dbservers
+  become: true
+  vars:
+    - doc_root: /var/www/example
+  tasks:
+     - debug:
+         msg: "This is first task"
+       tags: first
+     - debug:
+         msg: "This is second task"
+       tags: 
+         - second
+         - common
+     - debug:
+         msg: "This is third task"
+       tags: 
+         - third
+         - common
+         - always
+     - debug:
+         msg: "This is fourth task"
+       tags: 
+         - fourth
+         - never

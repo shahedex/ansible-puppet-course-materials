@@ -1,0 +1,14 @@
+---
+-
+  hosts: webservers
+ 
+  vars_prompt:
+    - name: username
+      private: false
+    - name: password
+      private: true
+  tasks:
+    - name: Test vars_prompt
+      debug:
+        msg: "{{ username }}"
+...

@@ -1,0 +1,9 @@
+---
+- hosts: webservers
+  become: true
+  vars:
+     package: nmap
+     name: username_zz
+  tasks:
+     - name: Install Package
+       apt: name={{ package }} state=latest

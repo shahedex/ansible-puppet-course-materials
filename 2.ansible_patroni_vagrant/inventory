@@ -1,0 +1,26 @@
+# ETCD Cluster
+[etcd_cluster]
+172.42.42.111
+172.42.42.112
+172.42.42.113
+
+
+# PostgreSQL nodes
+[master]
+172.42.42.111  hostname=postgresnode01 postgresql_exists='false'
+
+[replica]
+172.42.42.112 hostname=postgresnode02
+172.42.42.113  hostname=postgresnode03
+
+[postgres_cluster:children]
+master
+replica
+
+# Connection settings
+[all:vars]
+ansible_connection='ssh'
+ansible_ssh_port='22'
+ansible_user='vagrant'
+ansible_ssh_pass='vagrant'
+

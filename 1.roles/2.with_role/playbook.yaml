@@ -1,0 +1,9 @@
+---
+- hosts: webservers
+  become: true
+  roles:
+    - dotstrap.neovim
+    - apache
+  vars:
+    - doc_root: /var/www/example
+
